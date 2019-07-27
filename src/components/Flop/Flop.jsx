@@ -12,6 +12,7 @@ const Flop = (props) => {
         table_height,
         table_width,
         show_cards,
+        flop_visible,
     } = props;
 
     return (
@@ -25,18 +26,21 @@ const Flop = (props) => {
                 height={card_height}
                 width={card_width}
                 show_card={show_cards}
+                card_visible={flop_visible}
             />
             <Card
                 card_data={card2}
                 height={card_height}
                 width={card_width}
                 show_card={show_cards}
+                card_visible={flop_visible}
             />
             <Card
                 card_data={card3}
                 height={card_height}
                 width={card_width}
                 show_card={show_cards}
+                card_visible={flop_visible}
             />
         </div>
     )
