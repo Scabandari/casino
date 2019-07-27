@@ -6,6 +6,8 @@ const Hand = (props) => {
     const {
         card1,
         card2,
+        card1_visible,
+        card2_visible,
         card_height,
         card_width,
         table_position,
@@ -34,12 +36,14 @@ const Hand = (props) => {
                 height={card_height}
                 width={card_width}
                 show_card={show_cards}
+                card_visible={card1_visible}
             />
             <Card
                 card_data={card2}
                 height={card_height}
                 width={card_width}
                 show_card={show_cards}
+                card_visible={card2_visible}
             />
         </div>
     )

@@ -48,7 +48,16 @@ const table_positions = {
         offset_left_divisor: 2.8,
         offset_top_divisor: 2.2,
 
-    }
+    },
+    turn: {
+        offset_left_divisor: 1.9,
+        offset_top_divisor: 2.2,
+    },
+    river: {
+        offset_left_divisor: 1.7,
+        offset_top_divisor: 2.2,
+
+    },
 };
 
 export default table_positions;

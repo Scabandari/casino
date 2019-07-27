@@ -13,6 +13,8 @@ const Table = (props) => {
     const {
         deck_position,
         flop,
+        turn,
+        river,
         east,
         south,
         west,
@@ -22,7 +24,16 @@ const Table = (props) => {
         north_west,
         south_west,
     } = table_positions;
+
     const { table_height, table_width, see_flop, see_turn, see_river } = props;
+
+    const deck_top_offset = table_height/deck_position.offset_top_divisor;
+    const deck_left_offset = table_width/deck_position.offset_left_divisor;
+    const turn_top_offset = table_height/turn.offset_top_divisor;
+    const turn_left_offset = table_width/turn.offset_left_divisor;
+    const river_top_offset = table_height/river.offset_top_divisor;
+    const river_left_offset = table_width/river.offset_left_divisor;
+
     const styles = {
         table: {
             // height:  '55vh',
@@ -35,13 +46,25 @@ const Table = (props) => {
         },
         deck: {
             'position': 'absolute',
-            'top': `${table_height/deck_position.offset_top_divisor}vh`,
-            'left': `${table_width/deck_position.offset_left_divisor}vw`,
+            'top': `${deck_top_offset}vh`,
+            'left': `${deck_left_offset}vw`,
+            border: '2px solid red',
+
         },
         flop: {
             'position': 'absolute',
             'top': `${table_height/flop.offset_top_divisor}vh`,
             'left': `${table_width/flop.offset_left_divisor}vw`,
+        },
+        turn: {
+            'position': 'absolute',
+            'top': `${turn_top_offset}vh`,
+            'left': `${turn_left_offset}vw`,
+        },
+        river: {
+            'position': 'absolute',
+            'top': `${river_top_offset}vh`,
+            'left': `${river_left_offset}vw`,
         }
 
     };
@@ -64,7 +87,8 @@ const Table = (props) => {
                   table_height={table_height}
                   table_width={table_width}
                   show_cards={false}
-
+                  card1_visible={true}
+                  card2_visible={true}
               />
               <Hand
                   card1={deck.two_clubs}
@@ -75,7 +99,8 @@ const Table = (props) => {
                   table_height={table_height}
                   table_width={table_width}
                   show_cards={false}
-
+                  card1_visible={true}
+                  card2_visible={true}
               />
               <Hand
                   card1={deck.two_clubs}
@@ -86,6 +111,8 @@ const Table = (props) => {
                   table_height={table_height}
                   table_width={table_width}
                   show_cards={true}
+                  card1_visible={true}
+                  card2_visible={true}
               />
               <Hand
                   card1={deck.two_clubs}
@@ -96,7 +123,8 @@ const Table = (props) => {
                   table_height={table_height}
                   table_width={table_width}
                   show_cards={false}
-
+                  card1_visible={true}
+                  card2_visible={true}
               />
               <Hand
                   card1={deck.two_clubs}
@@ -107,6 +135,8 @@ const Table = (props) => {
                   table_height={table_height}
                   table_width={table_width}
                   show_cards={false}
+                  card1_visible={true}
+                  card2_visible={true}
               />
               <Hand
                   card1={deck.two_clubs}
@@ -117,6 +147,8 @@ const Table = (props) => {
                   table_height={table_height}
                   table_width={table_width}
                   show_cards={false}
+                  card1_visible={true}
+                  card2_visible={true}
               />
               <Hand
                   card1={deck.two_clubs}
@@ -127,6 +159,8 @@ const Table = (props) => {
                   table_height={table_height}
                   table_width={table_width}
                   show_cards={false}
+                  card1_visible={true}
+                  card2_visible={true}
               />
               <Hand
                   card1={deck.two_clubs}
@@ -137,16 +171,9 @@ const Table = (props) => {
                   table_height={table_height}
                   table_width={table_width}
                   show_cards={false}
+                  card1_visible={true}
+                  card2_visible={true}
               />
-              <div style={styles.deck}>
-                  <Card
-                      card_data={deck.deck}
-                      height={6}
-                      width={2.5}
-                      show_card={false}
-                  />
-              </div>
-
               <Flop
                   card1={deck.three_clubs}
                   card2={deck.three_diamonds}
@@ -157,8 +184,32 @@ const Table = (props) => {
                   table_height={table_height}
                   table_width={table_width}
                   show_cards={true}
+                  flop_visible={true}
               />
-
+              <Card
+                  card_data={deck.deck}
+                  height={6}
+                  width={2.5}
+                  show_card={false}
+                  card_visible={true}
+                  card_styles={styles.deck}
+              />
+              <Card
+                  card_data={deck.three_diamonds}
+                  height={6}
+                  width={2.5}
+                  show_card={true}
+                  card_visible={true}
+                  card_styles={styles.turn}
+              />
+              <Card
+                  card_data={deck.two_hearts}
+                  height={6}
+                  width={2.5}
+                  show_card={true}
+                  card_visible={true}
+                  card_styles={styles.river}
+              />
           </div>
       </div>
   )
