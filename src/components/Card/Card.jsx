@@ -1,8 +1,9 @@
 import React from 'react';
+import back from './images/back.png';
 
 const Card = (props) => {
 
-    const { card_data, height, width } = props;
+    const { card_data, height, width, show_card } = props;
     const styles = {
         height: `${height}vh`,
         width: `${width}vw`,
@@ -12,7 +13,7 @@ const Card = (props) => {
     };
 
 
-    return <img style={styles} src={card_data.img} alt={"card"} />
+    return <img style={styles} src={show_card? card_data.img : back} alt={"card"} />
 };
 
 export default Card;
