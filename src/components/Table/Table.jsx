@@ -1,13 +1,14 @@
 import React from 'react';
 import table from './table.png';
-//import Card from '../Card';
 import Hand from '../Hand';
 import table_positions from '../const/tablePositions';
+import { PRE_DEAL, PRE_FLOP, PRE_TURN, PRE_RIVER, HAND_RESULT} from '../../const/GameStages';
 import deck from '../const/deck';
 import Card from "../Card/Card";
 import Flop from '../Flop';
 
 
+// TODO pass table_positions in as props so this functional component is pure?
 const Table = (props) => {
     
     const {
@@ -25,7 +26,13 @@ const Table = (props) => {
         south_west,
     } = table_positions;
 
-    const { table_height, table_width, see_flop, see_turn, see_river } = props;
+    const {
+        table_height,
+        table_width,
+        game_mode,
+        game_stage,
+        handleNextGameStage
+    } = props;
 
     const deck_top_offset = table_height/deck_position.offset_top_divisor;
     const deck_left_offset = table_width/deck_position.offset_left_divisor;
@@ -69,6 +76,39 @@ const Table = (props) => {
 
     };
 
+    const renderBoardParams = (game_stage) => {
+        switch (game_stage) {
+            case PRE_TURN:
+                return {
+                    show_flop: true,
+                    show_turn: false,
+                    show_river: false,
+                };
+            case PRE_RIVER:
+                return {
+                    show_flop: true,
+                    show_turn: true,
+                    show_river: false,
+                };
+            case HAND_RESULT:
+                return {
+                    show_flop: true,
+                    show_turn: true,
+                    show_river: true,
+                };
+            default:
+                return {
+                    show_flop: false,
+                    show_turn: false,
+                    show_river: false,
+                };
+        }
+    };
+
+    const { show_flop, show_turn, show_river } = renderBoardParams(game_stage);
+
+
+
     //props.game_type, props.hands
 
     // TODO table info should be received as props and dynamically rendered
@@ -78,6 +118,15 @@ const Table = (props) => {
       <div style={{height: '100vh', width: '100vw', position: 'relative'}} >
           <div style={styles.table}>
               <img style={{ width: '100%', position: 'fixed', zIndex: '-1' }} src={table} alt={'table'} />
+              <Card
+                  card_data={deck.deck}
+                  height={6}
+                  width={2.5}
+                  show_card={false}
+                  card_visible={true}
+                  card_styles={styles.deck}
+                  handleOnClick={handleNextGameStage}
+              />
               <Hand
                   card1={deck.two_clubs}
                   card2={deck.two_diamonds}
@@ -184,22 +233,15 @@ const Table = (props) => {
                   table_height={table_height}
                   table_width={table_width}
                   show_cards={true}
-                  flop_visible={true}
+                  flop_visible={show_flop}
               />
-              <Card
-                  card_data={deck.deck}
-                  height={6}
-                  width={2.5}
-                  show_card={false}
-                  card_visible={true}
-                  card_styles={styles.deck}
-              />
+
               <Card
                   card_data={deck.three_diamonds}
                   height={6}
                   width={2.5}
                   show_card={true}
-                  card_visible={true}
+                  card_visible={show_turn}
                   card_styles={styles.turn}
               />
               <Card
@@ -207,7 +249,7 @@ const Table = (props) => {
                   height={6}
                   width={2.5}
                   show_card={true}
-                  card_visible={true}
+                  card_visible={show_river}
                   card_styles={styles.river}
               />
           </div>
