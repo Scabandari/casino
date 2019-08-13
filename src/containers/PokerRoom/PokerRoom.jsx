@@ -21,30 +21,32 @@ class PokerRoom extends Component {
         const { setGameStage } = this.props;
 
         let next_stage;
-        if(stage === PRE_DEAL) {
-            next_stage = PRE_FLOP;
-        } else if(stage === PRE_FLOP) {
-            next_stage = PRE_TURN;
-        } else if(stage === PRE_TURN) {
-            next_stage = PRE_RIVER;
-        } else if(stage === PRE_RIVER) {
-            next_stage = HAND_RESULT;
-        } else {
-            next_stage = PRE_DEAL;
+        switch (stage) {
+            case PRE_DEAL:
+                next_stage = PRE_FLOP;
+                break;
+            case PRE_FLOP:
+                next_stage = PRE_TURN;
+                break;
+            case PRE_TURN:
+                next_stage = PRE_RIVER;
+                break;
+            case PRE_RIVER:
+                next_stage = HAND_RESULT;
+                break;
+            case PRE_DEAL:
+                next_stage = PRE_FLOP;
+                break;
+            default:
+                next_stage = PRE_DEAL;
         }
         setGameStage(next_stage);
         //console.log(`stage: ${stage}`);
     };
 
-    changeGameStage = () => {
-        // setTimeout(this.props.setGameStage(PRE_FLOP), 3000);
-        // setTimeout(this.props.setGameStage(PRE_TURN), 6000);
-        // setTimeout(this.props.setGameStage(PRE_RIVER), 9000);
-        // setTimeout(this.props.setGameStage(HAND_RESULT), 12000);
-        // setTimeout(this.props.setGameStage(PRE_FLOP), 15000);
-    };
 
-    // TODO I'd like to dynamically set the table size based on screen size
+
+    // TODO I'd like to dynamically set the table size, card size & location? based on screen size
     render() {
         //this.nextGameStage();
 

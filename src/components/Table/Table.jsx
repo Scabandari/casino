@@ -43,13 +43,10 @@ const Table = (props) => {
 
     const styles = {
         table: {
-            // height:  '55vh',
-            // width: '50vw',
             height: `${table_height}vh`,
             width: `${table_width}vw`,
             position: 'fixed',
             transform: 'translate(45%, 45%)',
-            //border: '3px solid red',
         },
         deck: {
             'position': 'absolute',
@@ -72,52 +69,57 @@ const Table = (props) => {
             'position': 'absolute',
             'top': `${river_top_offset}vh`,
             'left': `${river_left_offset}vw`,
+        },
+        container: {
+            height: '100vh',
+            width: '100vw',
+            position: 'relative'
+        },
+        img_style: {
+            width: '100%',
+            position: 'fixed',
+            zIndex: '-1'
         }
 
     };
 
     const renderBoardParams = (game_stage) => {
+        let show_flop, show_turn, show_river;
         switch (game_stage) {
             case PRE_TURN:
-                return {
-                    show_flop: true,
-                    show_turn: false,
-                    show_river: false,
-                };
+                show_flop = true ;
+                show_turn = false ;
+                show_river = false ;
+                break;
             case PRE_RIVER:
-                return {
-                    show_flop: true,
-                    show_turn: true,
-                    show_river: false,
-                };
+                show_flop = true;
+                show_turn = true ;
+                show_river = false ;
+                break;
             case HAND_RESULT:
-                return {
-                    show_flop: true,
-                    show_turn: true,
-                    show_river: true,
-                };
+                show_flop = true;
+                show_turn = true ;
+                show_river = true ;
+                break;
+
             default:
-                return {
-                    show_flop: false,
-                    show_turn: false,
-                    show_river: false,
-                };
+                show_flop  = false ;
+                show_turn  = false ;
+                show_river  = false ;
         }
+        return { show_flop, show_turn, show_river };
     };
 
     const { show_flop, show_turn, show_river } = renderBoardParams(game_stage);
 
-
-
-    //props.game_type, props.hands
-
+    // props.game_type, props.hands
     // TODO table info should be received as props and dynamically rendered
     // array of hands + their positions, card values etc
 
   return (
-      <div style={{height: '100vh', width: '100vw', position: 'relative'}} >
+      <div style={styles.container} >
           <div style={styles.table}>
-              <img style={{ width: '100%', position: 'fixed', zIndex: '-1' }} src={table} alt={'table'} />
+              <img style={styles.img_style} src={table} alt={'table'} />
               <Card
                   card_data={deck.deck}
                   height={6}
