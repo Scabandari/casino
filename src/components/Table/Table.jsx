@@ -45,35 +45,37 @@ const Table = (props) => {
         table: {
             height: `${table_height}vh`,
             width: `${table_width}vw`,
-            position: 'fixed',
-            transform: 'translate(45%, 45%)',
+            //position: 'fixed',
+            transform: 'translate(45%, 10%)',
+            //border: 'blue solid 2px',
         },
         deck: {
-            'position': 'absolute',
-            'top': `${deck_top_offset}vh`,
-            'left': `${deck_left_offset}vw`,
+            position: 'absolute',
+            top: `${deck_top_offset}vh`,
+            left: `${deck_left_offset}vw`,
             border: '2px solid red',
 
         },
         flop: {
-            'position': 'absolute',
-            'top': `${table_height/flop.offset_top_divisor}vh`,
-            'left': `${table_width/flop.offset_left_divisor}vw`,
+            position: 'absolute',
+            top: `${table_height/flop.offset_top_divisor}vh`,
+            left: `${table_width/flop.offset_left_divisor}vw`,
         },
         turn: {
-            'position': 'absolute',
-            'top': `${turn_top_offset}vh`,
-            'left': `${turn_left_offset}vw`,
+            position: 'absolute',
+            top: `${turn_top_offset}vh`,
+            left: `${turn_left_offset}vw`,
         },
         river: {
-            'position': 'absolute',
-            'top': `${river_top_offset}vh`,
-            'left': `${river_left_offset}vw`,
+            position: 'absolute',
+            top: `${river_top_offset}vh`,
+            left: `${river_left_offset}vw`,
         },
         container: {
             height: '100vh',
             width: '100vw',
-            position: 'relative'
+            position: 'relative',
+            //border: 'red solid 2px'
         },
         img_style: {
             width: '100%',

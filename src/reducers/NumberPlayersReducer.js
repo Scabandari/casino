@@ -1,20 +1,16 @@
 import ActionTypes from '../const/ActionTypes';
-import { POT_COUNT }  from '../const/GameModes';
-
 
 const initialState = {
-  mode: POT_COUNT,
+    number_players: 8
 };
 
 export default (state=initialState, action) => {
     switch(action.type) {
-        case ActionTypes.SET_GAME_MODE: {
+        case ActionTypes.SET_NUMBER_PLAYERS:
             return Object.assign({}, state, {
-                mode: action.mode || state.mode,
+               number_players: action.number_players || state.number_players,
             });
-        }
         default:
             return state;
     }
-}
-
+};
