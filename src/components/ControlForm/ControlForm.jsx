@@ -23,14 +23,23 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function ControlForm({ actions: {game_mode, number_players}, gameType }) {
+export default function ControlForm(
+    {
+        actions: {set_game_mode, set_number_players, set_blinds},
+        current_game_mode,
+        all_game_modes,
+        number_players,
+        blinds,
+    }) {
 
     const classes = useStyles();
     const [values, setValues] = React.useState({
-        [number_players.name]: 2,
-        [game_mode.name]: gameType[0],
-        age: 10,
+        [set_number_players.name]: number_players,
+        [set_game_mode.name]: current_game_mode,
+        //[set_blinds.name]: `${blinds.small_blind}/${blinds.big_blind}`,
+        [set_blinds.name]: {small_blind: blinds.small_blind, big_blind: blinds.big_blind},
     });
+    console.log(`values: ${JSON.stringify(values)}`);
 
     //const inputLabel = React.useRef(null);
     // const [labelWidth, setLabelWidth] = React.useState(0);
@@ -43,14 +52,15 @@ export default function ControlForm({ actions: {game_mode, number_players}, game
             ...oldValues,
             [event.target.name]: event.target.value,
         }));
-        // Here is where I can set redux state via callbacks passed down through props
-        console.log(`name: ${event.target.name} value: ${event.target.value}`);
-        if (event.target.name === game_mode.name) {
+        //console.log(`name: ${event.target.name} value: ${event.target.value}`);
+        if (event.target.name === set_game_mode.name) {
             //console.log(`game_mode action called`);
-            game_mode.action(event.target.value);
-        } else if (event.target.name === number_players.name) {
+            set_game_mode.action(event.target.value);
+        } else if (event.target.name === set_number_players.name) {
             //console.log(`number_players action called`);
-            number_players.action(event.target.value);
+            set_number_players.action(event.target.value);
+        } else if (event.target.name === set_blinds.name) {
+            set_blinds.action(event.target.value);
         }
         //console.log(`props: ${JSON.stringify(props)}`);
 
@@ -61,10 +71,10 @@ export default function ControlForm({ actions: {game_mode, number_players}, game
             <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="age-simple">Players</InputLabel>
                 <Select
-                    value={values.num_players}
+                    value={values.number_players}
                     onChange={handleChange}
                     inputProps={{
-                        name: number_players.name,
+                        name: set_number_players.name,
                         id: 'players-simple',
                     }}
                 >
@@ -81,30 +91,30 @@ export default function ControlForm({ actions: {game_mode, number_players}, game
             <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="age-simple">Game Type</InputLabel>
                 <Select
-                    value={values.game_type}
+                    value={values.game_mode}
                     onChange={handleChange}
                     inputProps={{
-                        name: game_mode.name,
+                        name: set_game_mode.name,
                         id: 'gameMode-simple',
                     }}
                 >
-                    <MenuItem value={gameType[0].value}>{gameType[0].name}</MenuItem>
+                    <MenuItem value={all_game_modes[0].value}>{all_game_modes[0].name}</MenuItem>
                 </Select>
             </FormControl>
 
             <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="age-simple">Age</InputLabel>
+                <InputLabel htmlFor="age-simple">Blinds</InputLabel>
                 <Select
-                    value={values.age}
+                    value={values.blinds}
                     onChange={handleChange}
                     inputProps={{
-                        name: 'age',
-                        id: 'age-simple',
+                        name: 'blinds',
+                        id: 'blinds-simple',
                     }}
                 >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={{big_blind: 2, small_blind: 1}}>1/2</MenuItem>
+                    <MenuItem value={{big_blind: 10, small_blind: 5}}>5/10</MenuItem>
+                    <MenuItem value={{big_blind: 20, small_blind: 10}}>10/20</MenuItem>
                 </Select>
             </FormControl>
 

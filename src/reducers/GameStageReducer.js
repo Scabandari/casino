@@ -8,9 +8,7 @@ const initialState = {
 export default (state=initialState, action) => {
     switch(action.type) {
         case ActionTypes.SET_GAME_STAGE: {
-            return Object.assign({}, state, {
-                stage: action.payload || state.stage
-            });
+            return {...state, stage: action.stage};
         }
         default:
             return state;

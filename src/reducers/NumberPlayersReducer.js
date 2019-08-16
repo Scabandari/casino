@@ -7,9 +7,7 @@ const initialState = {
 export default (state=initialState, action) => {
     switch(action.type) {
         case ActionTypes.SET_NUMBER_PLAYERS:
-            return Object.assign({}, state, {
-               players: action.players || state.players,
-            });
+            return {...state, players: action.players};
         default:
             return state;
     }

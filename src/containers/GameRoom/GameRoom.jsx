@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { PokerTable, ControlForm } from '../../components/index';
-import { setGameMode, setGameStage, setNumberPlayers } from '../../actions';
+import { setGameMode, setGameStage, setNumberPlayers, setBlinds } from '../../actions';
 import { POT_COUNT } from '../../const/GameModes';
 import {HAND_RESULT, PRE_DEAL, PRE_FLOP, PRE_RIVER, PRE_TURN} from "../../const/GameStages";
 import table_positions from '../../components/const/tablePositions';
 import Card from "../../components/Card/Card";
-import Table from "../../components/Table/index";
 import deck from '../../components/const/deck';
 import Hand from "../../components/Hand";
 
@@ -162,8 +161,7 @@ class GameRoom extends Component {
     }
 
     nextGameStage = () => {
-        const { stage } = this.props.game_stage;  // TODO combine into one?
-        const { setGameStage } = this.props;
+        const { setGameStage, game_stage: {stage} } = this.props;
 
         let next_stage;
         switch (stage) {
@@ -195,6 +193,10 @@ class GameRoom extends Component {
 
     handleGameModeAction = (game_mode) => {
         this.props.setGameMode(game_mode);
+    };
+
+    handleBlindsAction = ({big_blind, small_blind}) => {
+      this.props.setBlinds({big_blind, small_blind});
     };
 
     updateBoard = (game_stage) => {
@@ -230,17 +232,22 @@ class GameRoom extends Component {
             game_stage: { stage },
             game_mode: { mode },
             number_players,
+            blinds,   //: { big_blind,  small_blind}
         } = this.props;
         console.log(`number_players: ${JSON.stringify(number_players.players)}`);
 
         const actions = {
-            game_mode: {
+            set_game_mode: {
                 name: 'game_mode',
                 action: this.handleGameModeAction,
             },
-            number_players: {
+            set_number_players: {
                 name: 'number_players',
                 action: this.handleNumberPlayersAction,
+            },
+            set_blinds: {
+                name: 'blinds',
+                action: this.handleBlindsAction,
             }
         };
 
@@ -263,8 +270,11 @@ class GameRoom extends Component {
                     <div style={{marginLeft: '20vmin'}}>
                         <ControlForm
                             thing={'thing'}
-                            gameType={[{name: "Pot Count", value: POT_COUNT}]}
+                            all_game_modes={[{name: "Pot Count", value: POT_COUNT}]}
+                            current_game_mode={mode}
+                            number_players={number_players}
                             actions={actions}
+                            blinds={blinds}
                         />
                     </div>
                 </div>
@@ -297,6 +307,7 @@ const mapDispatchToProps = {
     setGameMode,
     setGameStage,
     setNumberPlayers,
+    setBlinds,
 };
 
 
