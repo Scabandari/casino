@@ -10,7 +10,6 @@ export default (state=initialState, action) => {
     switch(action.type) {
         case ActionTypes.SET_GAME_MODE: {
             return Object.assign({}, state, {
-               //game: action.game || initialState.game,
                 mode: action.mode || state.mode,
             });
         }

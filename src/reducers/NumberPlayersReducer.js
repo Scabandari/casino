@@ -1,18 +1,14 @@
-import { PRE_DEAL } from '../const/GameStages';
 import ActionTypes from '../const/ActionTypes';
 
 const initialState = {
-  stage: PRE_DEAL,
+    players: 8
 };
 
 export default (state=initialState, action) => {
     switch(action.type) {
-        case ActionTypes.SET_GAME_STAGE: {
-            return {...state, stage: action.stage};
-        }
+        case ActionTypes.SET_NUMBER_PLAYERS:
+            return {...state, players: action.players};
         default:
             return state;
     }
-}
-
-
+};

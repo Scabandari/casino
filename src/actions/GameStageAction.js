@@ -1,9 +1,9 @@
 import ActionTypes from '../const/ActionTypes';
 
-const setGameStage = (game_stage) => {
+const setGameStage = (stage) => {
     return {
         type: ActionTypes.SET_GAME_STAGE,
-        payload: game_stage,
+        stage,
     }
 };
 
