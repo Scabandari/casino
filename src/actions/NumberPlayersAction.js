@@ -1,9 +1,9 @@
 import ActionTypes from '../const/ActionTypes';
 
-const setNumberPlayers = (number_players)=> {
+const setNumberPlayers = (players)=> {
     return {
         type: ActionTypes.SET_NUMBER_PLAYERS,
-        number_players
+        players
     }
 };
 
